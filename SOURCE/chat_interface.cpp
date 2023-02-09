@@ -122,6 +122,7 @@
 				return c;
 			case '6':
 				cout << CHANGEPASS << endl;
+				return c;
 			};
 		};
 	};
@@ -289,7 +290,7 @@
 			session->change_Password(password.c_str());
 		}
 		catch (int code) { error_Message(code); };
-		cout << PASSCHANGED << endl;
+		cout << " " << PASSCHANGED << endl;
 	};
 
 	/***********************************************************/
