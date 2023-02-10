@@ -257,7 +257,6 @@
 		unsigned n;
 		Condition condition;
 		char username[BUFFSIZE];
-		char nmessage[BUFFSIZE];
 
 		condition.sent = sent;
 		condition.received = received;
@@ -365,8 +364,6 @@
 
 	void get_User_Data(string* username, string* password)
 	{
-		string name;
-		string pass;
 		cout << " " << USERNAME << ": ";
 		getline(cin, *username);
 		cout << " " << PASSWORD << ": ";

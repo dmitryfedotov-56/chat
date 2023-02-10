@@ -26,6 +26,8 @@
 		virtual void close_Storage() = 0;
 
 		virtual bool empty_Storage() = 0;
+
+		virtual ~Storage_Access() {};
 	};
 
 	Storage_Access* open_Storage();

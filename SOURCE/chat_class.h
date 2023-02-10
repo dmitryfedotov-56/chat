@@ -15,11 +15,11 @@
 	class Chat : public Chat_Access {
 	public:
 
-		virtual Session_Access* create_User(const char* name, const char* password);
+		virtual Session_Access* create_User(const char* name, const char* password) override;
 		
-		virtual Session_Access* start_Session(const char* name, const char* password);
+		virtual Session_Access* start_Session(const char* name, const char* password) override;
 		
-		virtual ID new_User(const char* name, const char* password);
+		virtual ID new_User(const char* name, const char* password) ;
 
 		virtual ID user_ID(const char* name);		// try to find user ID
 
@@ -29,7 +29,7 @@
 
 		virtual void close_Chat();					// close chat
 
-		ID user_list_id;
+		ID user_list_id = 0;
 		User_Access* user ;
 		List_Access* user_list ;
 	};
@@ -44,16 +44,16 @@
 		friend class Message_Collection;
 	public:
 
-		virtual const char* user_Name() const;
+		virtual const char* user_Name() const override;
 
-		virtual void send_Message(const char* recipient, const char* text);
+		virtual void send_Message(const char* recipient, const char* text) override;
 
-		virtual void broadcast_Message(const char* text);
+		virtual void broadcast_Message(const char* text) override;
 
 		virtual Message_Collection_Access* select_Messages(const Condition* condition, 
-			Order order);
+			Order order) override;
 
-		virtual void change_Password(const char* password);
+		virtual void change_Password(const char* password) override;
 
 		virtual void open();
 
@@ -92,14 +92,14 @@
 /*
 		abstract class methods
 */
-		virtual bool has_Next();
+		virtual bool has_Next() override;
 
-		virtual const char* message_Text() const ;
-		virtual const time_t message_Time() const;
-		virtual bool message_Sent() const;
-		virtual bool message_Received() const;
-		virtual const char* sender_Name() const;
-		virtual const char* recipient_Name() const ;
+		virtual const char* message_Text() const override;
+		virtual const time_t message_Time() const override;
+		virtual bool message_Sent() const override;
+		virtual bool message_Received() const override;
+		virtual const char* sender_Name() const override;
+		virtual const char* recipient_Name() const override;
 		virtual ID message_ID() const;
 /*
 		implementation methods

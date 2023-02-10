@@ -114,27 +114,27 @@
 	class List_Class : public List_Access {
 	public:
 
-		virtual ID create();	// create list object
+		virtual ID create() override;	// create list object
 
-		virtual unsigned Size();
+		virtual unsigned Size() override;
 
-		virtual ID init_Element();
+		virtual ID init_Element() override;
 /*
 			init list element, returns NOTANID if the list is empty
 */
-		virtual ID last_Element();
+		virtual ID last_Element() override;
 /*
 			last list element, returns NOTANID if the list is empty
 */
-		virtual ID next_Element();
+		virtual ID next_Element() override;
 /*
 			next list element, can return NOTANID
 */
-		virtual ID prev_Element();
+		virtual ID prev_Element() override;
 /*
 			previous list element can return NOTANID
 */
-		virtual void include_Element(ID element);
+		virtual void include_Element(ID element) override;
 /*
 			include element to the beginning
 */
@@ -246,13 +246,13 @@
 
 	class User_Class : public User_Access {
 	public:
-		virtual ID create(const char* name, const char* pass);	// create a user
+		virtual ID create(const char* name, const char* pass) override;	// create a user
 
-		virtual const char* allocate_Name() const;			// user name
-		virtual const char* allocate_Password() const;		// user password
-		virtual ID message_Link_List() const;			// message link list ID
+		virtual const char* allocate_Name() const override;		// user name
+		virtual const char* allocate_Password() const override;	// user password
+		virtual ID message_Link_List() const override;			// message link list ID
 
-		virtual void change_Password(const char* pass);	// change password
+		virtual void change_Password(const char* pass) override;	// change password
 
 		User_Class():User_Access(&user){};
 
@@ -308,7 +308,7 @@
 	class Message_Data {
 	public:
 		ID text_id = NOTANID;			// text block id
-		time_t time;					// timestamp
+		time_t time = 0;				// timestamp
 		ID sender_id = NOTANID;			// sender object id
 		ID recipient_id = NOTANID;		// recipient object id		
 	};
@@ -317,12 +317,12 @@
 
 	class Message_Class : public Message_Access {
 	public:
-		virtual ID create(const char* text, ID sender_id, ID recipient_id);	// create a message
+		virtual ID create(const char* text, ID sender_id, ID recipient_id) override;	// create a message
 
-		virtual const char* allocate_Text() const;		// message text
-		virtual time_t message_Time() const;			// message timestamp
-		virtual ID sender_ID() const;					// message sender ID
-		virtual ID recipient_ID()const;					// message recipient ID
+		virtual const char* allocate_Text() const override;		// message text
+		virtual time_t message_Time() const override;			// message timestamp
+		virtual ID sender_ID() const override;					// message sender ID
+		virtual ID recipient_ID()const override;				// message recipient ID
 	
 		Message_Class() : Message_Access(&message) {};
 
@@ -375,11 +375,11 @@
 
 	class Message_Link_Class : public Message_Link_Access {
 	public:
-		virtual ID create(bool sent, bool received, ID message_id);	// create a link
+		virtual ID create(bool sent, bool received, ID message_id) override;	// create a link
 
-		virtual bool message_Sent() const ;				// message is sent
-		virtual bool message_Received() const;			// message is received
-		virtual ID message_ID() const;					// message ID
+		virtual bool message_Sent() const override;				// message is sent
+		virtual bool message_Received() const override;			// message is received
+		virtual ID message_ID() const override;					// message ID
 
 		Message_Link_Class() :Message_Link_Access(&message_link) {};
 
@@ -420,34 +420,34 @@
 	class Chat_Class : public Chat_Class_Access
 	{
 	public:
-		virtual User_Access* create_User_Access() 
+		virtual User_Access* create_User_Access() override
 		{ 
 			return new User_Class(); 
 		};
 
-		virtual Message_Access* create_Message_Access() 
+		virtual Message_Access* create_Message_Access() override
 		{ 
 			return new Message_Class(); 
 		};
 
-		virtual Message_Link_Access* create_Message_Link_Access() 
+		virtual Message_Link_Access* create_Message_Link_Access() override
 		{ 
 			return new Message_Link_Class(); 
 		};
 
-		virtual List_Access* create_List_Access() 
+		virtual List_Access* create_List_Access() override
 		{ 
 			return new List_Class();  
 		};
 
-		virtual ID user_List_ID() { return user_list_id; };
+		virtual ID user_List_ID() override { return user_list_id; };
 
-		virtual void close_Chat_Class() { storage-> close_Storage(); };
+		virtual void close_Chat_Class() override { storage-> close_Storage(); };
 
 		virtual void set_User_List_ID(ID id) { user_list_id = id; };
 
 	private:
-		ID user_list_id;
+		ID user_list_id = 0;
 	};
 
 	/***********************************************************/

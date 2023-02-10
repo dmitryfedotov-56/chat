@@ -54,13 +54,13 @@
 
 		void read(unsigned size, void* dst)
 		{
-			int n = fread(dst, size, 1, file);
+			size_t n = fread(dst, size, 1, file);
 			if (n != 1)throw STORAGE_ERROR;
 		};
 
 		void write(unsigned size, void* src)
 		{
-			int n = fwrite(src, size, 1, file);
+			size_t n = fwrite(src, size, 1, file);
 			if (n != 1)throw STORAGE_ERROR;
 		};
 
@@ -83,6 +83,7 @@
 	{
 		BLOCK id = offset;
 		int n = fseek(file, 0, SEEK_END);
+		if (n != 0)throw STORAGE_ERROR;
 		write(size, src);
 		offset += size;
 #if DEBUG
@@ -91,17 +92,17 @@
 		return id;
 	};
 
-	void FILE_Storage::del_Data(BLOCK id) {};;
+	void FILE_Storage::del_Data(BLOCK id) {};
 
 	void FILE_Storage::put_Data(BLOCK id, unsigned size, void* src)
 	{
-		seek(id);
+		seek((long)id);
 		write(size, src);
 	};
 
 	void FILE_Storage::get_Data(BLOCK id, unsigned size, void* dst)
 	{
-		seek(id);
+		seek((long)id);
 		read(size, dst);
 	};
 
@@ -114,6 +115,7 @@
 		BLOCK id = offset;
 		unsigned size = strlen(s) + 1;
 		int n = fseek(file, 0, SEEK_END);
+		if (n != 0)throw STORAGE_ERROR;
 		write(sizeof(unsigned), (void*)&size);
 		offset += sizeof(unsigned);
 		write(size, (void*)s);
@@ -127,7 +129,7 @@
 	const char* FILE_Storage::allocate_Line(BLOCK id)
 	{
 		unsigned size = 0;
-		seek(id);
+		seek((long)id);
 		read(sizeof(unsigned), &size);
 		void* ptr = malloc(size);
 		if (ptr == nullptr)throw STORAGE_ERROR;

@@ -132,14 +132,14 @@
 		if (strcmp(name, ALL) == 0)	// special user?
 		{
 			throw ALREADY_EXISTS;
-			return nullptr;
+			// return nullptr;
 		};
 
 		ID user_id = user_ID(name);
 		if (user_id != NOTANID)
 		{
 			throw ALREADY_EXISTS;
-			return nullptr;
+			// return nullptr;
 		};
 		user_id = new_User(name, password);
 		Session* session = new Session(this, user_id);
@@ -360,6 +360,7 @@
 			return message_link_list->last_Element();	// last message
 			break;
 		};
+		return NOTANID;
 	};
 
 	/***********************************************************/
@@ -375,6 +376,7 @@
 			return message_link_list->prev_Element();	// prev message
 			break;
 		};
+		return NOTANID;
 	};
 
 	/***********************************************************/

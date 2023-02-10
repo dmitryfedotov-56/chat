@@ -13,6 +13,8 @@
 		virtual void open(ID id) = 0;
 		virtual void save() = 0;
 		virtual ID create() = 0;
+
+		virtual ~Object_Block() {};
 	};
 
 	/***********************************************************/
@@ -25,6 +27,8 @@
 
 		Object_Class(Object_Block* block);
 
+		virtual ~Object_Class() {};
+
 	protected:
 		Object_Block* object_block = nullptr;
 	};
@@ -36,7 +40,9 @@
 	class List_Access : public Object_Class {
 	public:
 
-		virtual ID create() = 0;	// create list object
+		virtual ID create() = 0;		// create list object
+
+		virtual unsigned Size() = 0;	// list size
 
 		virtual ID init_Element() = 0;
 /*
@@ -63,6 +69,8 @@
 			exclude element from the list
 */
 		List_Access(Object_Block* block);
+
+		virtual ~List_Access() {};
 	};
 
 	/***********************************************************/
@@ -78,6 +86,8 @@
 		virtual void change_Password(const char* pass) = 0;	// change password
 		
 		User_Access(Object_Block* block);
+
+		virtual ~User_Access() {};
 	};
 
 	/***********************************************************/
@@ -91,6 +101,8 @@
 		virtual ID message_ID() const = 0;					// message ID
 
 		Message_Link_Access(Object_Block* block);
+
+		virtual ~Message_Link_Access() {};
 	};
 
 	/***********************************************************/
@@ -105,6 +117,8 @@
 		virtual ID recipient_ID()const = 0;					// message recipient ID
 		
 		Message_Access(Object_Block* block);
+
+		virtual ~Message_Access() {};
 	};
 
 	/***********************************************************/
@@ -117,6 +131,8 @@
 		virtual List_Access* create_List_Access() = 0;
 		virtual ID user_List_ID() = 0;
 		virtual void close_Chat_Class() = 0;
+
+		virtual ~Chat_Class_Access() {};
 	};
 
 	Chat_Class_Access* get_Chat_Class();
